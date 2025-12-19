@@ -99,12 +99,14 @@ else
     echo " ----- Server configuration already exists -----"
 fi
 
+mkdir -p /data/enshrouded
+
 # Update or install the Enshrouded dedicated server using SteamCMD
-./steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir /home/steam/enshrouded +login anonymous +app_update 2278520 +quit
+./steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir /data/enshrouded +login anonymous +app_update 2278520 +quit
 echo "Server files updated."
 
 # Launch the Enshrouded server executable using Wine
 # Using exec to replace the shell with wine, making it tini's direct child.
 # This allows tini to forward signals (SIGTERM, SIGINT, etc.) directly to wine
 echo "Launching Enshrouded server..."
-exec wine /home/steam/enshrouded/enshrouded_server.exe
+exec wine /data/enshrouded/enshrouded_server.exe

@@ -85,6 +85,9 @@ RUN mkdir -p /home/steam/.steam \
 && mkdir -p /home/steam/enshrouded/logs \
 && chown -R steam:steam /home/steam
 
+RUN mkdir -p /data \
+&& chown -R steam:steam /data
+
 # --------------------------
 # Add Entrypoint Script
 # --------------------------
@@ -101,7 +104,7 @@ WORKDIR /home/steam
 # --------------------------
 # Volume and Port Configuration
 # --------------------------
-VOLUME /home/steam/enshrouded
+VOLUME /data
 EXPOSE 15637/udp
 
 # --------------------------
