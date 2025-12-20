@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+export STEAM_APP_DIR=/data
 GAME_FILE_PATH=/data/enshrouded
 STEAM_FILE_PATH=/data/steam
 mkdir -p ${GAME_FILE_PATH}
