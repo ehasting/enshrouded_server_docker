@@ -2,7 +2,9 @@
 
 
 GAME_FILE_PATH=/data/enshrouded
+STEAM_FILE_PATH=/data/steam
 mkdir -p ${GAME_FILE_PATH}
+mkdir -p ${STEAM_FILE_PATH}
 
 
 # If this is the first initialization of the container, create the server config
@@ -102,6 +104,7 @@ else
 fi
 
 
+/usr/games/steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir ${STEAM_FILE_PATH} +quit 
 
 # Update or install the Enshrouded dedicated server using SteamCMD
 /usr/games/steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir ${GAME_FILE_PATH} +login anonymous +app_update 2278520 +quit

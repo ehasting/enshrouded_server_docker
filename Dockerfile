@@ -82,7 +82,7 @@ RUN chmod +x /app/entrypoint.sh
 # --------------------------
 # Prepare SteamCMD Environment
 # --------------------------
-RUN /usr/games/steamcmd +quit
+#RUN /usr/games/steamcmd +quit
 WORKDIR /data
 
 # --------------------------
