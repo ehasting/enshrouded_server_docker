@@ -1,18 +1,20 @@
 #!/bin/bash
 
-# Ensure .steam directory exists to avoid symlink issues
-mkdir -p /home/steam/.steam
+
+GAME_FILE_PATH=/data/enshrouded
+mkdir -p ${GAME_FILE_PATH}
+
 
 # If this is the first initialization of the container, create the server config
-if [ ! -e /home/steam/enshrouded/enshrouded_server.json ]; then
+if [ ! -e ${GAME_FILE_PATH}/enshrouded_server.json ]; then
 
     echo " ----- Starting initial configuration -----"
 
     # Create server properties file using environment variables
     echo "Creating server configuration file..."
 
-    touch /home/steam/enshrouded/enshrouded_server.json
-    cat << EOF >> /home/steam/enshrouded/enshrouded_server.json
+    touch ${GAME_FILE_PATH}/enshrouded_server.json
+    cat << EOF >> ${GAME_FILE_PATH}/enshrouded_server.json
 {
   "name": "${ENSHROUDED_SERVER_NAME}",
   "saveDirectory": "./savegame",
@@ -99,14 +101,14 @@ else
     echo " ----- Server configuration already exists -----"
 fi
 
-mkdir -p /data/enshrouded
+
 
 # Update or install the Enshrouded dedicated server using SteamCMD
-./steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir /data/enshrouded +login anonymous +app_update 2278520 +quit
+/usr/games/steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir ${GAME_FILE_PATH} +login anonymous +app_update 2278520 +quit
 echo "Server files updated."
 
 # Launch the Enshrouded server executable using Wine
 # Using exec to replace the shell with wine, making it tini's direct child.
 # This allows tini to forward signals (SIGTERM, SIGINT, etc.) directly to wine
 echo "Launching Enshrouded server..."
-exec wine /data/enshrouded/enshrouded_server.exe
+exec wine ${GAME_FILE_PATH}/enshrouded_server.exe

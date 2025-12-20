@@ -52,12 +52,8 @@ RUN add-apt-repository -y multiverse \
     lib32z1 \
     lib32gcc-s1 \
     lib32stdc++6 \
-    steamcmd \
-&& groupadd steam \
-&& useradd -m steam -g steam \
-&& passwd -d steam \
-&& chown -R steam:steam /usr/games \
-&& ln -s /usr/games/steamcmd /home/steam/steamcmd
+    steamcmd 
+
 
 # --------------------------
 # Install Wine and Winetricks
@@ -76,30 +72,18 @@ RUN dpkg --add-architecture amd64 \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
 
-# --------------------------
-# Create Server Directories
-# --------------------------
-RUN mkdir -p /home/steam/.steam \
-&& mkdir -p /home/steam/enshrouded \
-&& mkdir -p /home/steam/enshrouded/savegame \
-&& mkdir -p /home/steam/enshrouded/logs \
-&& chown -R steam:steam /home/steam
-
-RUN mkdir -p /data \
-&& chown -R steam:steam /data
 
 # --------------------------
 # Add Entrypoint Script
 # --------------------------
-ADD ./entrypoint.sh /home/steam/entrypoint.sh
-RUN chmod +x /home/steam/entrypoint.sh
+ADD ./entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 # --------------------------
 # Prepare SteamCMD Environment
 # --------------------------
-USER steam
-RUN /home/steam/steamcmd +quit
-WORKDIR /home/steam
+RUN /usr/games/steamcmd +quit
+WORKDIR /data
 
 # --------------------------
 # Volume and Port Configuration
@@ -110,4 +94,4 @@ EXPOSE 15637/udp
 # --------------------------
 # Default Entrypoint
 # --------------------------
-ENTRYPOINT [ "/usr/bin/tini", "--", "/home/steam/entrypoint.sh" ]
+ENTRYPOINT [ "/usr/bin/tini", "--", "/app/entrypoint.sh" ]
