@@ -1,3 +1,7 @@
+This is build on top of: https://github.com/bonsaibauer/enshrouded_server_docker
+
+I take no credit for this - and main purpose of the changes is because i wanted to run this on podman, and keep the gamefiles + a bit more structured.
+
 [![Repository](https://img.shields.io/badge/Repository-enshrouded__server__docker-blue?style=flat&logo=github)](https://github.com/bonsaibauer/enshrouded_server_docker)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bonsaibauer/enshrouded_server_docker.svg?cacheSeconds=60)](https://hub.docker.com/r/bonsaibauer/enshrouded_server_docker)

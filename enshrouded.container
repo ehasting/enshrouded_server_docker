@@ -1,0 +1,13 @@
+[Unit]
+Description=Enshrouded SteamCMD based server
+After=local-fs.target network-online.target
+
+[Container]
+Image=docker.io/ehasting/enshrouded_server_podman:latest
+Volume=/opt/enshrouded/data:/data:z
+PodmanArgs=--rm
+PublishPort=15637:15637/udp
+
+[Install]
+# Start by default on boot
+WantedBy=multi-user.target default.target
